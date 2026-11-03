@@ -1,0 +1,13 @@
+
+torch
+transformers
+tokenizers
+accelerate
+safetensors
+sentencepiece
+
+# for CPU Quantization
+optimum-quanto
+
+# for GPU Quantization
+bitsandbytes

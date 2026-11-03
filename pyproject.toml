@@ -1,0 +1,25 @@
+[project]
+name = "quantize"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Vishal", email = "vishaltech6125@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.15.0",
+    "optimum-quanto>=0.2.7",
+    "safetensors>=0.8.0",
+    "sentencepiece>=0.2.2",
+    "tokenizers>=0.23.3",
+    "torch>=2.15.0",
+    "transformers>=5.22.1",
+]
+
+[project.scripts]
+quantize = "quantize:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
