@@ -21,6 +21,24 @@ This repository demonstrates how to take **`Qwen/Qwen2.5-0.5B-Instruct`** and ru
 
 ---
 
+## 📂 Repository File Structure
+
+```text
+Quantize/
+├── test.py              # Precision & memory calculation tool across model sizes
+├── quantize_qwen.py     # Quantizes Qwen2.5-0.5B to INT8 via optimum-quanto & saves locally
+├── int8_qwen.py         # Loads & runs inference on the local INT8 quantized model (CPU)
+├── gpu_bnb_qwen.py      # On-the-fly 4-bit NF4 quantization & interactive CLI chat (GPU)
+├── qwen-int8/           # Output directory holding saved INT8 weights (ignored in git)
+├── requirements.txt     # Python dependencies list
+├── pyproject.toml       # Project configuration (uv package manager)
+├── uv.lock              # Reproducible dependency lockfile
+├── .gitignore           # Ignores large model shards, .venv, caches, and secrets
+└── README.md            # Project documentation and guide
+```
+
+---
+
 ## 📊 Precision & Memory Comparison (0.5B Parameter Model)
 
 | Precision | Bits per Weight | Approx. Weight Size | Primary Target |
