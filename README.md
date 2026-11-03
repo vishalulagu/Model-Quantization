@@ -14,10 +14,13 @@ This repository demonstrates how to take **`Qwen/Qwen2.5-0.5B-Instruct`** and ru
 - **CPU INT8 Quantization (`quantize_qwen.py` & `int8_qwen.py`)**:
   - Compresses FP32/FP16 weights to 8-bit integers using `optimum-quanto`.
   - Saves the quantized model shards locally (`./qwen-int8`) for offline deployment.
+  - **Inference Latency Tracking**: Tracks and logs the exact response generation time (seconds) on CPU.
 - **GPU 4-bit NormalFloat Quantization (`gpu_bnb_qwen.py`)**:
   - Uses `bitsandbytes` with `NF4` (NormalFloat4), double quantization, and `fp16` compute dtype.
   - Runs with minimal VRAM (~350 MB) on an NVIDIA RTX 4050 Laptop GPU.
   - Interactive multi-turn CLI chatbot interface with context memory.
+  - **Live Performance & GPU Profiling**: Measures real-time token generation time (`Taken Time`) and dynamically tracks GPU memory allocation (`torch.cuda.memory_allocated()`) in MB.
+- **Inference Benchmarking Across Methods**: Both CPU and GPU chat scripts track exact response generation latency (`Taken Time`), enabling direct side-by-side performance comparison.
 
 ---
 
@@ -109,8 +112,10 @@ python gpu_bnb_qwen.py
 
 ---
 
-## 💡 Key Learnings
+## 💡 Key Learnings & Benchmarking
 
+- **Latency & Time Tracking**: Built-in timers measure end-to-end token generation time, highlighting the significant speedup on GPU CUDA cores compared to CPU execution.
+- **GPU Resource Profiling**: Tracking active VRAM usage demonstrates how 4-bit NF4 retains high generation quality while occupying only a fraction of GPU memory.
 - **Activation-aware & Distribution-aware quantization**: Why NF4 outperforms standard INT4 for LLMs by adapting to normal weight distributions.
 - **Compute vs. Storage Precision**: Keeping weights in 4-bit while dequantizing to FP16 dynamically for fast tensor core computation.
 - **Hardware Bottlenecks**: Overcoming CPU latency limitations by offloading quantized weights to dedicated NVIDIA CUDA cores.

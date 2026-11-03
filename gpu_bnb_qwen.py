@@ -1,4 +1,4 @@
-
+import time
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -44,6 +44,7 @@ while True:
     
     messages.append({"role": "user", "content": question})
 
+    sttime = time.time()
     prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
     # 5. Move inputs to GPU (cuda)
@@ -53,11 +54,12 @@ while True:
     print("AI: ", end="", flush=True)
     with torch.no_grad():
         output = model.generate(**inputs, max_new_tokens=256)
-
+    sptime = time.time()
     # 7. Decode Output
     answer = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
 
     print(answer)
     print("VRAM USED:", f"{torch.cuda.memory_allocated() / (1024**2):.2f} MB")
+    print(f"Time Taken: {(sptime-sttime): 3.2f}")
     print("="*60)
     messages.append({"role": "assistant", "content": answer})

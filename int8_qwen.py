@@ -10,14 +10,16 @@ SAVED_FOLDER = "./qwen-int8"
 print("Loading the small model...")
 model = QuantizedModelForCausalLM.from_pretrained(SAVED_FOLDER)
 tokenizer = AutoTokenizer.from_pretrained(SAVED_FOLDER)
-print("-------------- MINI Bot is Ready!! ---------------\n")
+print("\n" + "="*50)
+print("🤖 Qwen 8-bit CPU Chatbot Ready! (Type '/bye' to quit)")
+print("="*50,"\n")
 
 messages = [{"role": "system", "content": "You are a helpful ai bot called MINI."}]
 
 while True:
     question = input("YOU: ")
 
-    if question.lower() in ["/bye"]:
+    if question.lower() in ["/bye", "/exit"]:
         break
 
     if not question.strip():
